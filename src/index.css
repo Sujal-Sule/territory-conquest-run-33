@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TerritoryRun Design System - Energetic, competitive, game-like */
+
+@layer base {
+  :root {
+    /* Base colors - Dark fitness theme */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    /* Card and surface colors */
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary - Electric Blue for user territories */
+    --primary: 217 91% 60%;
+    --primary-foreground: 222 47% 6%;
+    --primary-glow: 217 91% 70%;
+
+    /* Secondary - Cool gray for neutral areas */
+    --secondary: 215 25% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted colors */
+    --muted: 215 25% 12%;
+    --muted-foreground: 217 10% 65%;
+
+    /* Accent - Energetic yellow for highlights */
+    --accent: 45 93% 58%;
+    --accent-foreground: 222 47% 6%;
+
+    /* Territory colors */
+    --territory-user: 217 91% 60%;     /* Electric blue for user */
+    --territory-enemy: 0 84% 65%;      /* Vibrant red for enemies */
+    --territory-ally: 142 71% 45%;     /* Green for allies */
+    --territory-neutral: 215 25% 25%;  /* Gray for unclaimed */
+    --territory-contested: 25 95% 53%; /* Orange for battles */
+
+    /* Status colors */
+    --success: 142 71% 45%;
+    --warning: 25 95% 53%;
+    --destructive: 0 84% 65%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* UI elements */
+    --border: 215 25% 20%;
+    --input: 215 25% 18%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    /* Gradients for territory effects */
+    --gradient-conquest: linear-gradient(135deg, hsl(var(--territory-user)), hsl(var(--primary-glow)));
+    --gradient-battle: linear-gradient(45deg, hsl(var(--territory-contested)), hsl(var(--warning)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(215 25% 10%));
+
+    /* Shadows and glows */
+    --shadow-territory: 0 0 20px hsl(var(--primary) / 0.3);
+    --shadow-battle: 0 0 25px hsl(var(--territory-contested) / 0.4);
+    --shadow-card: 0 8px 32px hsl(222 47% 4% / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* TerritoryRun Custom Components */
+@layer components {
+  /* Territory visualization classes */
+  .territory-user {
+    @apply bg-gradient-to-br from-[hsl(var(--territory-user))] to-[hsl(var(--primary-glow))];
+    box-shadow: var(--shadow-territory);
+  }
+  
+  .territory-enemy {
+    @apply bg-gradient-to-br from-[hsl(var(--territory-enemy))] to-red-400;
+    box-shadow: 0 0 20px hsl(var(--territory-enemy) / 0.3);
+  }
+  
+  .territory-contested {
+    @apply bg-gradient-to-br from-[hsl(var(--territory-contested))] to-[hsl(var(--warning))];
+    box-shadow: var(--shadow-battle);
+    animation: pulse-battle 2s ease-in-out infinite alternate;
+  }
+  
+  .territory-neutral {
+    @apply bg-gradient-to-br from-[hsl(var(--territory-neutral))] to-gray-600;
+  }
+  
+  /* Game-like UI components */
+  .card-game {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+    @apply rounded-2xl border border-border/50;
+  }
+  
+  .btn-conquest {
+    background: var(--gradient-conquest);
+    @apply text-primary-foreground font-bold tracking-wide rounded-xl px-6 py-3;
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition-bounce);
+  }
+  
+  .btn-conquest:hover {
+    @apply scale-105;
+    box-shadow: 0 0 50px hsl(var(--primary-glow) / 0.4);
+  }
+  
+  .btn-battle {
+    background: var(--gradient-battle);
+    @apply text-primary-foreground font-bold tracking-wide rounded-xl px-6 py-3;
+    transition: var(--transition-bounce);
+  }
+  
+  .btn-battle:hover {
+    @apply scale-105;
+    box-shadow: var(--shadow-battle);
+  }
+  
+  /* Stats and metrics styling */
+  .stat-card {
+    @apply card-game p-4;
+    background: linear-gradient(145deg, hsl(var(--card)), hsl(215 25% 12%));
+  }
+  
+  .metric-number {
+    @apply text-2xl font-bold;
+    background: var(--gradient-conquest);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Territory progress animations */
+  .progress-conquest {
+    background: var(--gradient-conquest);
+    @apply rounded-full h-2;
+    animation: glow-pulse 2s ease-in-out infinite alternate;
+  }
+  
+  /* Map and interactive elements */
+  .map-container {
+    @apply rounded-2xl overflow-hidden;
+    box-shadow: var(--shadow-card);
+    border: 2px solid hsl(var(--border));
+  }
+  
+  .leaderboard-rank {
+    @apply flex items-center justify-between p-4 rounded-xl;
+    background: linear-gradient(90deg, hsl(var(--card)), hsl(215 25% 10%));
+    border-left: 4px solid hsl(var(--primary));
+  }
+  
+  .badge-achievement {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+    background: var(--gradient-hero);
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+/* Custom animations for territory battles and conquest */
+@layer utilities {
+  @keyframes pulse-battle {
+    0% { 
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    100% { 
+      opacity: 1;
+      transform: scale(1.02);
+    }
+  }
+  
+  @keyframes glow-pulse {
+    0% { 
+      box-shadow: 0 0 10px hsl(var(--primary) / 0.3);
+    }
+    100% { 
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.6);
+    }
+  }
+  
+  @keyframes conquest-takeover {
+    0% { 
+      width: 0%;
+      opacity: 0.5;
+    }
+    100% { 
+      width: 100%;
+      opacity: 1;
+    }
+  }
+  
+  .animate-conquest {
+    animation: conquest-takeover 3s ease-out forwards;
+  }
+  
+  .animate-battle-pulse {
+    animation: pulse-battle 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-glow {
+    animation: glow-pulse 2s ease-in-out infinite alternate;
+  }
+}
