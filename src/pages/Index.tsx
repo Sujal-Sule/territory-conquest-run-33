@@ -44,26 +44,27 @@ const Index = () => {
   };
 
   const renderLeaderboard = () => (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Leaderboard
             </h1>
             <p className="text-muted-foreground mt-2">Indore Territory Champions</p>
           </div>
-          <Badge className="badge-achievement">
+          <Badge className="badge-achievement self-start sm:self-auto">
             Global Rank: #47
           </Badge>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {leaderboardData.map((player, index) => (
-            <Card key={player.rank} className="card-game p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${
+            <Card key={player.rank} className="card-game p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                {/* Mobile: Stacked layout, Desktop: Horizontal */}
+                <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center text-lg sm:text-2xl ${
                     index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600' :
                     index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-500' :
                     index === 2 ? 'bg-gradient-to-br from-amber-600 to-amber-800' :
@@ -72,30 +73,33 @@ const Index = () => {
                     {index < 3 ? (index === 0 ? '👑' : index === 1 ? '🥈' : '🥉') : player.avatar}
                   </div>
                   
-                  <div>
+                  <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-lg">{player.name}</span>
-                      {index === 0 && <Crown className="w-5 h-5 text-yellow-500" />}
+                      <span className="font-bold text-base sm:text-lg">{player.name}</span>
+                      {index === 0 && <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       Level {player.level} • {player.battles} battles won
                     </div>
                   </div>
                 </div>
 
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-primary">#{player.rank}</div>
-                  <div className="text-sm text-muted-foreground">{player.points} pts</div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 ml-8">
-                  <div className="text-center">
-                    <div className="font-bold text-primary">{player.territories}</div>
-                    <div className="text-xs text-muted-foreground">Territories</div>
+                {/* Stats section - responsive grid */}
+                <div className="flex justify-between sm:justify-end sm:gap-8 items-center">
+                  <div className="text-center sm:text-right">
+                    <div className="text-xl sm:text-2xl font-bold text-primary">#{player.rank}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">{player.points} pts</div>
                   </div>
-                  <div className="text-center">
-                    <div className="font-bold text-accent">{player.battles}</div>
-                    <div className="text-xs text-muted-foreground">Victories</div>
+
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="text-center">
+                      <div className="font-bold text-primary text-sm sm:text-base">{player.territories}</div>
+                      <div className="text-xs text-muted-foreground">Territories</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-bold text-accent text-sm sm:text-base">{player.battles}</div>
+                      <div className="text-xs text-muted-foreground">Victories</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -107,34 +111,34 @@ const Index = () => {
   );
 
   const renderProfile = () => (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Profile
             </h1>
             <p className="text-muted-foreground mt-2">Your conquest statistics</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           {/* Profile Header */}
-          <div className="lg:col-span-3">
-            <Card className="card-game p-8">
-              <div className="flex items-center gap-6">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-4xl font-bold text-primary-foreground">
+          <div className="xl:col-span-3">
+            <Card className="card-game p-4 sm:p-6 lg:p-8">
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-2xl sm:text-4xl font-bold text-primary-foreground">
                   AR
                 </div>
-                <div className="flex-1">
-                  <h2 className="text-3xl font-bold">{userProfile.name}</h2>
-                  <div className="flex items-center gap-4 mt-2">
-                    <Badge className="badge-achievement">Level {userProfile.level}</Badge>
-                    <Badge variant="outline">🔥 {userProfile.currentStreak} day streak</Badge>
-                    <Badge variant="outline">🏆 #1 Local</Badge>
+                <div className="flex-1 text-center sm:text-left">
+                  <h2 className="text-xl sm:text-3xl font-bold">{userProfile.name}</h2>
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-4 mt-2">
+                    <Badge className="badge-achievement text-xs">Level {userProfile.level}</Badge>
+                    <Badge variant="outline" className="text-xs">🔥 {userProfile.currentStreak} day streak</Badge>
+                    <Badge variant="outline" className="text-xs">🏆 #1 Local</Badge>
                   </div>
                 </div>
-                <Button className="btn-conquest">
+                <Button className="btn-conquest w-full sm:w-auto">
                   <Zap className="w-4 h-4 mr-2" />
                   Start Run
                 </Button>
@@ -143,10 +147,10 @@ const Index = () => {
           </div>
 
           {/* Stats */}
-          <div className="lg:col-span-2">
-            <Card className="card-game p-6 mb-6">
-              <h3 className="text-xl font-bold mb-4">Statistics</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="xl:col-span-2">
+            <Card className="card-game p-4 sm:p-6 mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-4">Statistics</h3>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <div className="stat-card text-center">
                   <div className="metric-number">{userProfile.totalRuns}</div>
                   <div className="text-sm text-muted-foreground">Total Runs</div>
@@ -166,8 +170,8 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="card-game p-6">
-              <h3 className="text-xl font-bold mb-4">Recent Activity</h3>
+            <Card className="card-game p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-4">Recent Activity</h3>
               <div className="space-y-3">
                 <div className="leaderboard-rank">
                   <div className="flex items-center gap-3">
@@ -195,8 +199,8 @@ const Index = () => {
 
           {/* Achievements */}
           <div>
-            <Card className="card-game p-6">
-              <h3 className="text-xl font-bold mb-4">Achievements</h3>
+            <Card className="card-game p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-4">Achievements</h3>
               <div className="space-y-3">
                 {userProfile.achievements.map((achievement, index) => (
                   <div 
@@ -229,18 +233,18 @@ const Index = () => {
   );
 
   const renderSettings = () => (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-2xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Settings
           </h1>
           <p className="text-muted-foreground mt-2">Customize your conquest experience</p>
         </div>
 
-        <div className="space-y-6">
-          <Card className="card-game p-6">
-            <h3 className="text-xl font-bold mb-4">Notifications</h3>
+        <div className="space-y-4 sm:space-y-6">
+          <Card className="card-game p-4 sm:p-6">
+            <h3 className="text-lg sm:text-xl font-bold mb-4">Notifications</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span>Territory attacks</span>
@@ -257,8 +261,8 @@ const Index = () => {
             </div>
           </Card>
 
-          <Card className="card-game p-6">
-            <h3 className="text-xl font-bold mb-4">Privacy</h3>
+          <Card className="card-game p-4 sm:p-6">
+            <h3 className="text-lg sm:text-xl font-bold mb-4">Privacy</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span>Share location data</span>
@@ -271,8 +275,8 @@ const Index = () => {
             </div>
           </Card>
 
-          <Card className="card-game p-6">
-            <h3 className="text-xl font-bold mb-4">Connected Devices</h3>
+          <Card className="card-game p-4 sm:p-6">
+            <h3 className="text-lg sm:text-xl font-bold mb-4">Connected Devices</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span>Fitness tracker</span>

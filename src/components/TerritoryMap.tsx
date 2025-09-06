@@ -68,46 +68,51 @@ const TerritoryMap = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Territory Map
             </h1>
-            <p className="text-muted-foreground mt-2">Indore, Madhya Pradesh - Battle for your running grounds</p>
+            <p className="text-muted-foreground mt-2">Indore, MP - Battle for your running grounds</p>
           </div>
           
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-2 sm:gap-4">
             <Button 
               variant="outline" 
               onClick={() => setUseGoogleMaps(!useGoogleMaps)}
-              className="btn-conquest"
+              className="btn-conquest flex-1 sm:flex-none"
+              size="sm"
             >
               <Navigation className="w-4 h-4 mr-2" />
-              {useGoogleMaps ? 'Demo Map' : 'Google Maps'}
+              <span className="hidden sm:inline">{useGoogleMaps ? 'Demo Map' : 'Google Maps'}</span>
+              <span className="sm:hidden">Maps</span>
             </Button>
             <Button 
               variant="outline" 
               onClick={() => setShowLeaderboard(!showLeaderboard)}
-              className="btn-conquest"
+              className="btn-conquest flex-1 sm:flex-none"
+              size="sm"
             >
               <Trophy className="w-4 h-4 mr-2" />
-              Leaderboard
+              <span className="hidden sm:inline">Leaderboard</span>
+              <span className="sm:hidden">Ranks</span>
             </Button>
-            <Button className="btn-battle">
+            <Button className="btn-battle flex-1 sm:flex-none" size="sm">
               <Target className="w-4 h-4 mr-2" />
-              Start Run
+              <span className="hidden sm:inline">Start Run</span>
+              <span className="sm:hidden">Run</span>
             </Button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           {/* Main Map Area */}
-          <div className="lg:col-span-2">
-            <Card className="card-game p-6">
-              <div className="map-container h-96 bg-gradient-to-br from-muted/20 to-muted/40 flex items-center justify-center relative overflow-hidden">
+          <div className="xl:col-span-2">
+            <Card className="card-game p-4 sm:p-6">
+              <div className="map-container h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-muted/20 to-muted/40 flex items-center justify-center relative overflow-hidden">
                 {/* Simulated map with territories */}
                 <div className="absolute inset-0 opacity-20">
                   <div className="grid grid-cols-4 grid-rows-4 h-full gap-1 p-4">
@@ -130,8 +135,8 @@ const TerritoryMap = () => {
                 {/* Map overlay content */}
                 <div className="relative z-10 text-center">
                   <MapPin className="w-12 h-12 text-primary mx-auto mb-4 animate-bounce" />
-                  <h3 className="text-2xl font-bold mb-2">Indore Territory Map</h3>
-                  <p className="text-muted-foreground">Click on territories to view details</p>
+                  <h3 className="text-lg sm:text-2xl font-bold mb-2">Indore Territory Map</h3>
+                  <p className="text-muted-foreground text-sm sm:text-base">Click on territories to view details</p>
                 </div>
               </div>
 
@@ -148,7 +153,7 @@ const TerritoryMap = () => {
                     </Badge>
                   </div>
                   
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                     <div className="stat-card text-center">
                       <div className="metric-number">{activeTerritory.strength}%</div>
                       <div className="text-sm text-muted-foreground">Control</div>
@@ -178,7 +183,7 @@ const TerritoryMap = () => {
                     </div>
                   )}
 
-                  <div className="flex gap-2 mt-4">
+                  <div className="flex flex-col sm:flex-row gap-2 mt-4">
                     {activeTerritory.type === 'neutral' && (
                       <Button className="btn-conquest flex-1">
                         <Zap className="w-4 h-4 mr-2" />
@@ -204,9 +209,9 @@ const TerritoryMap = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Quick Stats */}
-            <Card className="card-game p-6">
+            <Card className="card-game p-4 sm:p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-accent" />
                 Your Empire
@@ -235,7 +240,7 @@ const TerritoryMap = () => {
 
             {/* Top Competitors */}
             {showLeaderboard && (
-              <Card className="card-game p-6">
+              <Card className="card-game p-4 sm:p-6">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Users className="w-5 h-5 text-accent" />
                   Local Leaders
@@ -262,7 +267,7 @@ const TerritoryMap = () => {
             )}
 
             {/* Active Battles */}
-            <Card className="card-game p-6">
+            <Card className="card-game p-4 sm:p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Clock className="w-5 h-5 text-warning animate-pulse" />
                 Live Battles

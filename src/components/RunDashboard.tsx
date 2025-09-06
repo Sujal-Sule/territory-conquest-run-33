@@ -125,33 +125,33 @@ const RunDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Run Dashboard
             </h1>
             <p className="text-muted-foreground mt-2">Track your conquests in real-time</p>
           </div>
           
-          <div className="flex items-center gap-4">
-            <Badge className="badge-achievement">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+            <Badge className="badge-achievement text-xs">
               Level 12 Conqueror
             </Badge>
-            <div className="text-right">
+            <div className="text-left sm:text-right">
               <div className="text-sm text-muted-foreground">Current Streak</div>
-              <div className="text-xl font-bold text-accent">7 days</div>
+              <div className="text-lg sm:text-xl font-bold text-accent">7 days</div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           {/* Main Stats */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="xl:col-span-2 space-y-4 sm:space-y-6">
             {/* Primary Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <Card className="stat-card text-center">
                 <div className="metric-number">{runStats.distance.toFixed(2)}</div>
                 <div className="text-sm text-muted-foreground">KM</div>
@@ -174,7 +174,7 @@ const RunDashboard = () => {
             </div>
 
             {/* Territory Conquest Progress */}
-            <Card className="card-game p-6">
+            <Card className="card-game p-4 sm:p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold flex items-center gap-2">
                   <Target className="w-5 h-5 text-accent" />
@@ -202,7 +202,7 @@ const RunDashboard = () => {
                   />
                 </div>
                 
-                <div className="grid grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
                   <div className="text-center">
                     <div className="font-semibold text-primary">2.1 KM</div>
                     <div className="text-muted-foreground">Circuit Length</div>
@@ -220,15 +220,15 @@ const RunDashboard = () => {
             </Card>
 
             {/* Control Panel */}
-            <Card className="card-game p-6">
-              <div className="flex justify-center gap-4">
+            <Card className="card-game p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                 {!isRunning ? (
                   <Button 
                     onClick={startRun}
-                    className="btn-conquest text-xl px-8 py-4"
+                    className="btn-conquest text-lg sm:text-xl px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
                     size="lg"
                   >
-                    <Play className="w-6 h-6 mr-2" />
+                    <Play className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
                     Start Conquest
                   </Button>
                 ) : (
@@ -237,12 +237,12 @@ const RunDashboard = () => {
                       onClick={pauseRun}
                       variant="outline"
                       size="lg"
-                      className="px-8 py-4"
+                      className="px-6 sm:px-8 py-3 sm:py-4 flex-1"
                     >
                       {isPaused ? (
-                        <><Play className="w-5 h-5 mr-2" />Resume</>
+                        <><Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />Resume</>
                       ) : (
-                        <><Pause className="w-5 h-5 mr-2" />Pause</>
+                        <><Pause className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />Pause</>
                       )}
                     </Button>
                     
@@ -250,9 +250,9 @@ const RunDashboard = () => {
                       onClick={stopRun}
                       variant="destructive"
                       size="lg"
-                      className="px-8 py-4"
+                      className="px-6 sm:px-8 py-3 sm:py-4 flex-1"
                     >
-                      <Square className="w-5 h-5 mr-2" />
+                      <Square className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                       End Run
                     </Button>
                   </>
@@ -262,9 +262,9 @@ const RunDashboard = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Live Stats */}
-            <Card className="card-game p-6">
+            <Card className="card-game p-4 sm:p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Heart className="w-5 h-5 text-destructive animate-pulse" />
                 Live Metrics
@@ -306,7 +306,7 @@ const RunDashboard = () => {
             </Card>
 
             {/* Achievements */}
-            <Card className="card-game p-6">
+            <Card className="card-game p-4 sm:p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Award className="w-5 h-5 text-accent" />
                 Achievements
@@ -352,7 +352,7 @@ const RunDashboard = () => {
             </Card>
 
             {/* Territory Status */}
-            <Card className="card-game p-6">
+            <Card className="card-game p-4 sm:p-6">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Zap className="w-5 h-5 text-accent" />
                 Territory Status
