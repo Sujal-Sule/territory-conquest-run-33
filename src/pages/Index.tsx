@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import TerritoryMap from '@/components/TerritoryMap';
 import RunDashboard from '@/components/RunDashboard';
@@ -12,11 +12,60 @@ import {
   Crown,
   Medal,
   Zap,
-  MapPin
+  MapPin,
+  Bell
 } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('map');
+  
+  // Settings state with localStorage persistence
+  const [settings, setSettings] = useState(() => {
+    const savedSettings = localStorage.getItem('runningApp-settings');
+    return savedSettings ? JSON.parse(savedSettings) : {
+      territoryAttacks: true,
+      dailyChallenges: true,
+      leaderboardUpdates: false,
+      shareLocationData: true,
+      publicProfile: true
+    };
+  });
+
+  // Save settings to localStorage whenever settings change
+  useEffect(() => {
+    localStorage.setItem('runningApp-settings', JSON.stringify(settings));
+  }, [settings]);
+
+  // Toggle setting function
+  const toggleSetting = (key: string) => {
+    setSettings(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
+
+  // Test notification function
+  const testNotification = async () => {
+    if (!("Notification" in window)) {
+      alert("This browser does not support notifications");
+      return;
+    }
+
+    if (Notification.permission === "granted") {
+      new Notification("Territory Conquest", {
+        body: "Your notification system is working perfectly!",
+        icon: "/favicon.ico"
+      });
+    } else if (Notification.permission !== "denied") {
+      const permission = await Notification.requestPermission();
+      if (permission === "granted") {
+        new Notification("Territory Conquest", {
+          body: "Your notification system is working perfectly!",
+          icon: "/favicon.ico"
+        });
+      }
+    }
+  };
 
   // Mock leaderboard data
   const leaderboardData = [
@@ -244,19 +293,63 @@ const Index = () => {
 
         <div className="space-y-4 sm:space-y-6">
           <Card className="card-game p-4 sm:p-6">
-            <h3 className="text-lg sm:text-xl font-bold mb-4">Notifications</h3>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <h3 className="text-lg sm:text-xl font-bold">Notifications</h3>
+              <Button 
+                onClick={testNotification}
+                variant="outline" 
+                size="sm"
+                className="flex items-center gap-2 w-full sm:w-auto"
+              >
+                <Bell className="h-4 w-4" />
+                Test Notification
+              </Button>
+            </div>
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span>Territory attacks</span>
-                <Button variant="outline" size="sm">Enabled</Button>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-sm sm:text-base">Territory attacks</span>
+                <Button 
+                  variant={settings.territoryAttacks ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleSetting('territoryAttacks')}
+                  className={`w-full sm:w-auto ${
+                    settings.territoryAttacks 
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  }`}
+                >
+                  {settings.territoryAttacks ? 'Enabled' : 'Disabled'}
+                </Button>
               </div>
-              <div className="flex items-center justify-between">
-                <span>Daily challenges</span>
-                <Button variant="outline" size="sm">Enabled</Button>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-sm sm:text-base">Daily challenges</span>
+                <Button 
+                  variant={settings.dailyChallenges ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleSetting('dailyChallenges')}
+                  className={`w-full sm:w-auto ${
+                    settings.dailyChallenges 
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  }`}
+                >
+                  {settings.dailyChallenges ? 'Enabled' : 'Disabled'}
+                </Button>
               </div>
-              <div className="flex items-center justify-between">
-                <span>Leaderboard updates</span>
-                <Button variant="outline" size="sm">Disabled</Button>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-sm sm:text-base">Leaderboard updates</span>
+                <Button 
+                  variant={settings.leaderboardUpdates ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleSetting('leaderboardUpdates')}
+                  className={`w-full sm:w-auto ${
+                    settings.leaderboardUpdates 
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  }`}
+                >
+                  {settings.leaderboardUpdates ? 'Enabled' : 'Disabled'}
+                </Button>
               </div>
             </div>
           </Card>
@@ -264,13 +357,35 @@ const Index = () => {
           <Card className="card-game p-4 sm:p-6">
             <h3 className="text-lg sm:text-xl font-bold mb-4">Privacy</h3>
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span>Share location data</span>
-                <Button variant="outline" size="sm">Enabled</Button>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-sm sm:text-base">Share location data</span>
+                <Button 
+                  variant={settings.shareLocationData ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleSetting('shareLocationData')}
+                  className={`w-full sm:w-auto ${
+                    settings.shareLocationData 
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  }`}
+                >
+                  {settings.shareLocationData ? 'Enabled' : 'Disabled'}
+                </Button>
               </div>
-              <div className="flex items-center justify-between">
-                <span>Public profile</span>
-                <Button variant="outline" size="sm">Enabled</Button>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-sm sm:text-base">Public profile</span>
+                <Button 
+                  variant={settings.publicProfile ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleSetting('publicProfile')}
+                  className={`w-full sm:w-auto ${
+                    settings.publicProfile 
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  }`}
+                >
+                  {settings.publicProfile ? 'Enabled' : 'Disabled'}
+                </Button>
               </div>
             </div>
           </Card>
@@ -278,13 +393,13 @@ const Index = () => {
           <Card className="card-game p-4 sm:p-6">
             <h3 className="text-lg sm:text-xl font-bold mb-4">Connected Devices</h3>
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span>Fitness tracker</span>
-                <Button className="btn-conquest" size="sm">Connect</Button>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-sm sm:text-base">Fitness tracker</span>
+                <Button className="btn-conquest w-full sm:w-auto" size="sm">Connect</Button>
               </div>
-              <div className="flex items-center justify-between">
-                <span>Heart rate monitor</span>
-                <Button className="btn-conquest" size="sm">Connect</Button>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <span className="text-sm sm:text-base">Heart rate monitor</span>
+                <Button className="btn-conquest w-full sm:w-auto" size="sm">Connect</Button>
               </div>
             </div>
           </Card>
